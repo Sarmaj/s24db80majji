@@ -1,6 +1,6 @@
 # s24wb80majji
 Hello
-Render link : https://s24wb80majji.onrender.com
+Render link : https://s24db80majji.onrender.com
 Class:Vegetables. Attributes are
      
      1.Vegetables_price(number)
