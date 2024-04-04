@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  h1= title
+
+  div.container-fluid
+    div.row
+      -
+        let items = result
+       
+      each item, index in results
+        .col-sm-2
+          div.col-sm-2(onclick=`buy(${index})`)
+            p Vegetable Type: #{item.vegetable_type}
+            p Size: #{item.vegetable_size}
+            p Price: #{item.vegetable_price ? '$' + item.vegetable_price.toFixed(2) : 'Price not available'}
+ 
+  a(href="/") Back to index
+
+  script.
+    function buy(index) {
+      alert(`You purchased item ${index}`);
+    }

@@ -6,9 +6,10 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var VegetablesRouter=require('./routes/Vegetables');
+var vegetableRouter=require('./routes/vegetable');
 var gridRouter=require('./routes/grid');
 var pickRouter=require('./routes/pick');
+var resourceRouter = require('./routes/resource');
 
 var app = express();
 
@@ -24,10 +25,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/Vegetables', VegetablesRouter);
+app.use('/vegetable', vegetableRouter);
 app.use('/grid', gridRouter);
 app.use('/pick', pickRouter);
-
+app.use('/resource', resourceRouter);
 
 
 // catch 404 and forward to error handler
@@ -47,3 +48,53 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+var vegetable = require("./models/vegetable");
+
+
+require('dotenv').config();
+const connectionString = process.env.MONGO_CON
+mongoose = require('mongoose');
+mongoose.connect(connectionString);
+//Get the default connection
+var db = mongoose.connection;
+//Bind connection to error event
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once("open", function(){
+console.log("Connection to DB succeeded")});
+
+
+async function recreateDB(){
+  await vegetable.deleteMany({}, { timeout: 30000 });
+  let instance1 = new
+  vegetable({vegetable_type:"beetroot", size:'large', cost:15.4});
+  instance1.save().then(doc=>{
+  console.log("First object saved")}
+  ).catch(err=>{
+  console.error(err)
+  });
+  
+  let instance2 = new
+  vegetable({vegetable_type:"carrot", size:'large', cost:15.4});
+  instance2.save().then(doc=>{
+  console.log("Second object saved")}
+  ).catch(err=>{
+  console.error(err)
+  });
+
+  let instance3 = new
+  vegetable({vegetable_type:"brinjal", size:'large', cost:15.4});
+  instance3.save().then(doc=>{
+  console.log("Third object saved")}
+  ).catch(err=>{
+  console.error(err)
+  });
+
+}
+
+
+  let reseed = true;
+  if (reseed) {recreateDB();}
+
+  
+
