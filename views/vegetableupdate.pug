@@ -1,0 +1,44 @@
+extends layout
+
+block content
+    h1= title
+
+    if (toShow == null)
+        h2 No instance to update
+    else
+        - let vegetableid = toShow._id
+        - let vegetable_type = toShow.vegetable_type
+        - let size = toShow.size
+        - let cost = toShow.cost
+        div.row(class='mb-2')
+            div.mr-1 ID is
+                div #{vegetableid}
+                - let actionid = "/resource/vegetable/" + vegetableid
+                form(id='vegetableForm', action= actionid, method="POST")
+                    div.form-group
+                        label.vegetableAttr(for='vegetable_type') vegetable Type
+                        input#vegetable_type(type='text' name='vegetable_type', value= vegetable_type)
+                    div.form-group
+                        label.vegetableAttr(for='size') vegetable Size
+                        input#size(type='text' name='size', value= size)
+                    div.form-group
+                        label.vegetableAttr(for='cost') vegetable Price
+                        input#cost(type='number' name='cost', value= cost)
+                    input(type="submit")
+    script.
+        document.forms['vegetableForm'].addEventListener('submit', (event) => {
+            event.preventDefault();
+            // TODO do something here to show user that form is being submitted
+            fetch(event.target.action, {
+                method: 'PUT',
+                body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+            }).then((resp) => {
+                return resp.text(); // or resp.text() or whatever the server sends
+            }).then((body) => {
+                alert("Update succeeded")
+                // TODO handle body
+            }).catch((error) => {
+                // TODO handle error
+                alert("Update failed " + error )
+            });
+        });
