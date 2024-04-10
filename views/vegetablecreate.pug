@@ -1,33 +1,36 @@
 extends layout
 
 block content
-  h1= title
-  form(id='vegetableForm', action="/resource/vegetable", method="POST")
-    div.form-group
-      label.vegetableAttr(for='vegetable_type') vegetable type
-      input#vegetable_type(type='text', name='vegetable_type')
-    div.form-group
-      label.vegetableAttr(for='size') vegetable size
-      input#size(type='text', name='size')
-    div.form-group
-      label.vegetableAttr(for='price') vegetable cost
-      input#cost(type='number', name='cost')
-    input(type="submit")
+  .container
+    .row
+      .col-md-6.mx-auto
+        h1= title
+        form(id='vegetableForm', action="/resource/vegetable", method="POST")
+          .form-group
+            label.vegetableAttr(for='vegetable_type') Vegetable Type
+            input#vegetable_type.form-control(type='text', name='vegetable_type')
+          .form-group
+            label.vegetableAttr(for='size') Vegetable Size
+            input#size.form-control(type='text', name='size')
+          .form-group
+            label.vegetableAttr(for='price') Vegetable Cost
+            input#cost.form-control(type='number', name='cost')
+          button.btn.btn-primary(type="submit") Submit
 
-  script.
-    document.forms['vegetableForm'].addEventListener('submit', (event) => {
-      event.preventDefault();
-      // TODO do something here to show user that form is being submitted
-      fetch(event.target.action, {
-        method: 'POST',
-        body: new URLSearchParams(new FormData(event.target)) // event.target is the form
-      }).then((resp) => {
-        return resp.json(); // or resp.text() or whatever the server sends
-      }).then((body) => {
-        alert("Save succeeded");
-        // TODO handle body
-      }).catch((error) => {
-        // TODO handle error
-        alert("Save failed " + error );
-      });
-    });
+        script.
+          document.forms['vegetableForm'].addEventListener('submit', (event) => {
+            event.preventDefault();
+            // TODO do something here to show user that form is being submitted
+            fetch(event.target.action, {
+              method: 'POST',
+              body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+            }).then((resp) => {
+              return resp.json(); // or resp.text() or whatever the server sends
+            }).then((body) => {
+              alert("Save succeeded");
+              // TODO handle body
+            }).catch((error) => {
+              // TODO handle error
+              alert("Save failed " + error );
+            });
+          });
