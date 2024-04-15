@@ -1,25 +1,25 @@
 extends layout
 
 block content
-h1= title
+  h1= title
 
-    if (toShow == null)
-        h2 No instance to update
-    else
-  - let vegetableid = toShow._id
-  - let vegetable_type = toShow.vegetable_type
-  - let vegetablecost = toShow.cost
-  - let vegetablesize = toShow.size
-  div
-    div.row
-      div.vegetableAttr.mr-3 Vegetable ID is:
-      div #{vegetableid}
-    div.row
-      div.vegetableAttr.mr-3 Vegetable Type is:
-      div #{vegetable_type}
-    div.row
-      div.vegetableAttr.mr-3 Vegetable Size is:
-      div #{vegetablesize}
-    div.row
-      div.vegetableAttr.mr-3 Vegetable Cost is:
-      div #{vegetablecost}
+  if toShow == null
+    h2 No instance to update
+  else
+    - let vegetableid = toShow._id
+    - let vegetable_type = toShow.vegetable_type
+    - let vegetablecost = toShow.cost
+    - let vegetablesize = toShow.size
+    div
+      div.row
+        div.vegetableAttr.mr-3 Vegetable ID is:
+        div= vegetableid
+      div.row
+        div.vegetableAttr.mr-3 Vegetable Type is:
+        div= vegetable_type
+      div.row
+        div.vegetableAttr.mr-3 Vegetable Size is:
+        div= vegetablesize
+      div.row
+        div.vegetableAttr.mr-3 Vegetable Cost is:
+        div= vegetablecost

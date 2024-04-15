@@ -7,8 +7,14 @@ block content
     div(class="row m-1")
       each item in items
         - let destination = `dispatch(\"/vegetable/update?id=${item._id}\")`
+        - let destinationcreate = `dispatch(\"/vegetable/create")`
+        - let destinationdetail = `dispatch(\"/vegetable/detail?id=${item._id}\")`
+        - let destinationdelete = `dispatch(\"/vegetable/delete?id=${item._id}\")`
         div(class="row-sm-2 m-1") Item #{item.vegetable_type}(#{item.size}) is #{item.cost}
         button.btn( class="btn-primary ml-1", onclick= destination) Update
+        button.btn( class="btn-secondary ml-1", onclick= destinationcreate) create
+        button.btn( class="btn-warning ml-1", onclick= destinationdetail) detail
+        button.btn( class="btn-danger ml-1", onclick= destinationdelete) delete
   script.
     function dispatch(path){
       window.location.href = path;}
